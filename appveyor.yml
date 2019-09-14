@@ -1,0 +1,51 @@
+version: "{build}"
+
+clone_depth: 1
+
+environment:
+  ASPELL_VERSION: 0.60.7
+
+install:
+  - git clone --depth 1 -b rel-%ASPELL_VERSION% https://github.com/GNUAspell/aspell.git
+  - set PATH=C:\msys64\mingw64\bin;C:\msys64\bin;C:\msys64\usr\bin;%PATH%;
+
+before_build:
+  - cd aspell
+  - ps: $env:GITCOMMIT_FULL = git rev-parse HEAD
+
+build_script:
+  - patch -p1 < ../aspell-mingw.patch
+  - bash autogen
+  - bash configure --prefix=C:/Aspell
+  - make
+
+after_build:
+  - make install
+  - 7z a %APPVEYOR_BUILD_FOLDER%\aspell-%ASPELL_VERSION%.7z C:\Aspell
+  - ps: |
+      $env:ARTIFACT_HASH = (Get-FileHash -Algorithm SHA256 $env:APPVEYOR_BUILD_FOLDER\aspell-$env:ASPELL_VERSION.7z).Hash
+      "$env:ARTIFACT_HASH  aspell-$env:ASPELL_VERSION.7z" | Out-File -Encoding ascii -File $env:APPVEYOR_BUILD_FOLDER\sha256sum.txt
+
+artifacts:
+  - path: aspell-$(ASPELL_VERSION).7z
+    name: Aspell binary archive
+  - path: sha256sum.txt
+    name: SHA256 hash of Aspell binary archive
+
+deploy:
+  - provider: GitHub
+    release: $(appveyor_repo_tag_name)
+    description: |
+      Aspell binary for Windows 64-bit.
+
+      Built https://github.com/GNUAspell/aspell at commit `$(GITCOMMIT_FULL)`.
+
+      | File                        | SHA-256 sum        |
+      | ---                         | ---                |
+      | aspell-$(ASPELL_VERSION).7z | `$(ARTIFACT_HASH)` |
+    auth_token:
+      secure: Jfjhx7TC03brqWcw+uUMXHJxj445SVeEcmSnDUV10ggRuU6UlzQMLSVGIBRqWD8v
+    artifact: aspell-$(ASPELL_VERSION).7z,sha256sum.txt
+    on:
+      branch: master
+      appveyor_repo_tag: true
