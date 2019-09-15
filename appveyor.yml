@@ -21,6 +21,7 @@ build_script:
 
 after_build:
   - make install
+  - bash ../build-dict.sh
   - 7z a %APPVEYOR_BUILD_FOLDER%\aspell-%ASPELL_VERSION%.7z C:\Aspell
   - ps: |
       $env:ARTIFACT_HASH = (Get-FileHash -Algorithm SHA256 $env:APPVEYOR_BUILD_FOLDER\aspell-$env:ASPELL_VERSION.7z).Hash
