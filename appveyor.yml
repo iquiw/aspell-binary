@@ -3,7 +3,7 @@ version: "{build}"
 clone_depth: 1
 
 environment:
-  ASPELL_VERSION: 0.60.7
+  ASPELL_VERSION: 0.60.8
 
 install:
   - git clone --depth 1 -b rel-%ASPELL_VERSION% https://github.com/GNUAspell/aspell.git
