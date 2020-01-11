@@ -21,6 +21,7 @@ build_script:
 
 after_build:
   - make install
+  - copy COPYING C:\Aspell
   - bash ../build-dict.sh
   - 7z a %APPVEYOR_BUILD_FOLDER%\aspell-%ASPELL_VERSION%.7z C:\Aspell
   - ps: |
