@@ -2,7 +2,7 @@
 
 set -ex
 
-DICT_NAME=aspell6-en-2018.04.16-0
+DICT_NAME=aspell6-en-2020.12.07-0
 
 curl -LO "https://ftp.gnu.org/gnu/aspell/dict/en/$DICT_NAME.tar.bz2"
 tar xjf "$DICT_NAME.tar.bz2"
