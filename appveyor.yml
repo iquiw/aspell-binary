@@ -46,7 +46,7 @@ deploy:
       | ---                         | ---                |
       | aspell-$(ASPELL_VERSION).7z | `$(ARTIFACT_HASH)` |
     auth_token:
-      secure: Jfjhx7TC03brqWcw+uUMXHJxj445SVeEcmSnDUV10ggRuU6UlzQMLSVGIBRqWD8v
+      secure: C3qhjaJSP+I+OZcx+iRef6lzMZNp6boJMgxrXAjQ7PJPjsByhjQAL2kT7pvl2rdG
     artifact: aspell-$(ASPELL_VERSION).7z,sha256sum.txt
     on:
       branch: master
