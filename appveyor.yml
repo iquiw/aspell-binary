@@ -3,7 +3,7 @@ version: "{build}"
 clone_depth: 1
 
 environment:
-  ASPELL_VERSION: 0.60.8.1
+  ASPELL_VERSION: 0.60.8.2
 
 install:
   - git clone --depth 1 -b rel-%ASPELL_VERSION% https://github.com/GNUAspell/aspell.git
@@ -15,7 +15,7 @@ before_build:
 
 build_script:
   - patch -p1 < ../aspell-mingw.patch
-  - bash autogen
+  - bash autogen.sh
   - bash configure --prefix=C:/Aspell
   - make
 
@@ -49,5 +49,4 @@ deploy:
       secure: C3qhjaJSP+I+OZcx+iRef6lzMZNp6boJMgxrXAjQ7PJPjsByhjQAL2kT7pvl2rdG
     artifact: aspell-$(ASPELL_VERSION).7z,sha256sum.txt
     on:
-      branch: master
       appveyor_repo_tag: true

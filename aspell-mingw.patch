@@ -1,74 +1,14 @@
-diff --git a/common/config.cpp b/common/config.cpp
-index 72fbc72..ab93f79 100644
---- a/common/config.cpp
-+++ b/common/config.cpp
-@@ -39,6 +39,10 @@
- #include "vararray.hpp"
- #include "string_list.hpp"
+diff --git a/common/gettext.h b/common/gettext.h
+index 20dac05..793624f 100644
+--- a/common/gettext.h
++++ b/common/gettext.h
+@@ -26,7 +26,9 @@
+ #if ENABLE_NLS
  
+ /* Get declarations of GNU message catalog functions.  */
 +#define printf printf
-+#include "libintl.h"
+ # include <libintl.h>
 +#undef printf
-+
- #include "gettext.h"
- 
- #include "iostream.hpp"
-diff --git a/common/convert.cpp b/common/convert.cpp
-index 7ddd370..84d0b97 100644
---- a/common/convert.cpp
-+++ b/common/convert.cpp
-@@ -22,6 +22,10 @@
- 
- #include "iostream.hpp"
- 
-+#define printf printf
-+#include "libintl.h"
-+#undef printf
-+
- #include "gettext.h"
- 
- namespace acommon {
-diff --git a/common/file_util.cpp b/common/file_util.cpp
-index 56ea501..299f8ea 100644
---- a/common/file_util.cpp
-+++ b/common/file_util.cpp
-@@ -30,6 +30,7 @@
- #  define ACCESS _access
- #  include <windows.h>
- #  include <winbase.h>
-+#  include "asc_ctype.hpp"
  
  #else
  
-diff --git a/modules/speller/default/language.cpp b/modules/speller/default/language.cpp
-index dcffe37..2c2c9be 100644
---- a/modules/speller/default/language.cpp
-+++ b/modules/speller/default/language.cpp
-@@ -20,7 +20,11 @@
- #include "getdata.hpp"
- #include "file_util.hpp"
- 
--#ifdef ENABLE_NLS
-+#define printf printf
-+#include "libintl.h"
-+#undef printf
-+
-+#ifdef HAVE_LANGINFO_CODESET
- #  include <langinfo.h>
- #endif
- 
-diff --git a/prog/aspell.cpp b/prog/aspell.cpp
-index bd74172..eee147d 100644
---- a/prog/aspell.cpp
-+++ b/prog/aspell.cpp
-@@ -60,6 +60,10 @@
- #include "hash-t.hpp"
- #include "hash_fun.hpp"
- 
-+#define printf printf
-+#include "libintl.h"
-+#undef printf
-+
- #include "gettext.h"
- 
- using namespace acommon;
