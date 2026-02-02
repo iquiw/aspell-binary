@@ -46,7 +46,7 @@ deploy:
       | ---                         | ---                |
       | aspell-$(ASPELL_VERSION).7z | `$(ARTIFACT_HASH)` |
     auth_token:
-      secure: C3qhjaJSP+I+OZcx+iRef6lzMZNp6boJMgxrXAjQ7PJPjsByhjQAL2kT7pvl2rdG
+      secure: 9jbS1RbC16iJvjV1crLG0i+rkHwOhmCop0HY8qcBP/zsejin0CI7ZscPLH15YM26
     artifact: aspell-$(ASPELL_VERSION).7z,sha256sum.txt
     on:
       appveyor_repo_tag: true
